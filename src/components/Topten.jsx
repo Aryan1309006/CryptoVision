@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCryptoContext } from "../context/Cryptocontext";
 
-
 export const Topten = ({ item }) => {
   const { currency } = useCryptoContext();
   const navigate = useNavigate();
@@ -12,52 +11,30 @@ export const Topten = ({ item }) => {
   const marketCap = typeof item?.market_cap === "number" ? item.market_cap : 0;
 
   return (
-    <div className="border-b border-gray-800 last:border-none hover:bg-gray-900 transition duration-200" onClick={() => navigate(`/coin/${item.id}`)}>
-      <div className="flex items-center h-16 md:h-20 px-4 md:px-6 text-white">
+    <div className="border-b border-slate-200 transition duration-200 last:border-none hover:bg-slate-100 dark:border-gray-800 dark:hover:bg-gray-900" onClick={() => navigate(`/coin/${item.id}`)}>
+      <div className="flex h-16 items-center px-4 text-slate-800 md:h-20 md:px-6 dark:text-white">
+        <div className="w-[10%] font-semibold text-slate-400 md:w-[8%]">{item.market_cap_rank}</div>
 
-        {/* Rank */}
-        <div className="w-[10%] md:w-[8%] text-gray-400 font-semibold">
-          {item.market_cap_rank}
-        </div>
-
-        {/* Coin */}
-        <div className="w-[45%] md:w-[34%] flex items-center gap-3">
-          <img
-            src={item.image}
-            alt={item.name}
-            className="w-8 h-8 md:w-10 md:h-10"
-          />
+        <div className="flex w-[45%] items-center gap-3 md:w-[34%]">
+          <img src={item.image} alt={item.name} className="h-8 w-8 md:h-10 md:w-10" />
 
           <div>
-            <h2 className="text-sm md:text-lg font-semibold">
-              {item.name}
-            </h2>
-
-            <p className="uppercase text-xs text-gray-400">
-              {item.symbol}
-            </p>
+            <h2 className="text-sm font-semibold md:text-lg">{item.name}</h2>
+            <p className="text-xs uppercase text-slate-400">{item.symbol}</p>
           </div>
         </div>
 
-        {/* Price */}
-        <div className="w-[20%] md:w-[18%] text-right text-sm md:text-base font-medium">
+        <div className="w-[20%] text-right text-sm font-medium md:w-[18%] md:text-base">
           {currency.symbol}{price.toLocaleString()}
         </div>
 
-        {/* 24h Change */}
-        <div
-          className={`w-[25%] md:w-[20%] text-right text-sm md:text-base font-semibold ${
-            priceChange >= 0 ? "text-green-500" : "text-red-500"
-          }`}
-        >
+        <div className={`w-[25%] text-right text-sm font-semibold md:w-[20%] md:text-base ${priceChange >= 0 ? "text-green-500" : "text-red-500"}`}>
           {priceChange.toFixed(2)}%
         </div>
 
-        {/* Market Cap - Hidden on Mobile */}
-        <div className="hidden md:block md:w-[20%] text-right text-base">
+        <div className="hidden text-right text-base md:block md:w-[20%]">
           {currency.symbol}{(marketCap / 1e9).toFixed(2)}B
         </div>
-
       </div>
     </div>
   );

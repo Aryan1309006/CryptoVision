@@ -1,14 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useCryptoContext } from "../src/context/Cryptocontext";
-import { Topten } from "../src/components/Topten";
-import ToptenSkeleton from "../src/components/ToptenSkeleton";
+import { useCryptoContext } from "../context/Cryptocontext";
+import { Topten } from "../components/Topten";
+import ToptenSkeleton from "../components/ToptenSkeleton";
 
 export const Pricing = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const { coinData, allCoins, loading, error, visibleCount, loadMoreCoins, hasMoreCoins } = useCryptoContext();
-  console.log(allCoins);
 
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("rank");
@@ -35,14 +34,12 @@ export const Pricing = () => {
 
     let coins = [...allCoins];
 
-    // Search
     coins = coins.filter(
       (coin) =>
         coin.name.toLowerCase().includes(search.toLowerCase()) ||
         coin.symbol.toLowerCase().includes(search.toLowerCase()),
     );
 
-    // Positive / Negative Filter
     if (changeFilter === "positive") {
       coins = coins.filter((coin) => coin.price_change_percentage_24h >= 0);
     }
@@ -51,7 +48,6 @@ export const Pricing = () => {
       coins = coins.filter((coin) => coin.price_change_percentage_24h < 0);
     }
 
-    // Sorting
     switch (sortBy) {
       case "priceHigh":
         coins.sort((a, b) => b.current_price - a.current_price);
@@ -66,10 +62,7 @@ export const Pricing = () => {
         break;
 
       case "change":
-        coins.sort(
-          (a, b) =>
-            b.price_change_percentage_24h - a.price_change_percentage_24h,
-        );
+        coins.sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h);
         break;
 
       case "az":
@@ -88,24 +81,21 @@ export const Pricing = () => {
   }, [allCoins, search, sortBy, changeFilter]);
 
   return (
-    <div className="min-h-screen bg-black py-10 px-4 flex justify-center">
+    <div className="flex min-h-screen justify-center bg-slate-200 px-4 py-10 transition-colors duration-300 dark:bg-black">
       <div className="w-full max-w-6xl">
-        {/* Filters */}
-        <div className="mb-6 flex flex-col md:flex-row gap-4">
-          {/* Search */}
+        <div className="mb-6 flex flex-col gap-4 md:flex-row">
           <input
             type="text"
             placeholder="Search Coin..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-2 text-white outline-none focus:border-emerald-500"
+            className="flex-1 rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-800 outline-none transition focus:border-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
           />
 
-          {/* Sort */}
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-2 text-white"
+            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-800 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
           >
             <option value="rank">Rank</option>
             <option value="priceHigh">Price High → Low</option>
@@ -116,11 +106,10 @@ export const Pricing = () => {
             <option value="za">Z → A</option>
           </select>
 
-          {/* 24h Change Filter */}
           <select
             value={changeFilter}
             onChange={(e) => setChangeFilter(e.target.value)}
-            className="bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-2 text-white"
+            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-slate-800 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
           >
             <option value="all">All</option>
             <option value="positive">Positive</option>
@@ -128,37 +117,26 @@ export const Pricing = () => {
           </select>
         </div>
 
-        {/* Table */}
-        <div className="overflow-hidden rounded-xl border border-zinc-800">
-          {/* Header */}
+        <div className=" overflow-hidden rounded-xl border border-slate-200 dark:border-zinc-800">
           <div className="bg-emerald-700">
-            <div className="flex items-center h-14 px-4 md:px-6 text-white font-semibold">
+            <div className="flex h-14 items-center px-4 text-white md:px-6">
               <div className="w-[10%] md:w-[8%]">#</div>
-
               <div className="w-[45%] md:w-[34%]">Coin</div>
-
-              <div className="w-[20%] md:w-[18%] text-right">Price</div>
-
-              <div className="w-[25%] md:w-[20%] text-right">24h Change</div>
-
-              <div className="hidden md:block md:w-[20%] text-right">
-                Market Cap
-              </div>
+              <div className="w-[20%] text-right md:w-[18%]">Price</div>
+              <div className="w-[25%] text-right md:w-[20%]">24h Change</div>
+              <div className="hidden text-right md:block md:w-[20%]">Market Cap</div>
             </div>
           </div>
 
-          {/* Body */}
-          <div className="bg-black">
+          <div className="bg-white dark:bg-black">
             {loading ? (
-              Array.from({ length: 10 }).map((_, index) => (
-                <ToptenSkeleton key={index} />
-              ))
+              Array.from({ length: 10 }).map((_, index) => <ToptenSkeleton key={index} />)
             ) : error ? (
-              <div className="text-red-500 text-center py-10">{error}</div>
+              <div className="py-10 text-center text-red-500">{error}</div>
             ) : filteredCoins.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-12 px-4 text-center text-red-400">
+              <div className="flex flex-col items-center justify-center px-4 py-12 text-center text-red-400">
                 <p className="text-lg font-semibold">Network issue detected</p>
-                <p className="text-sm text-gray-400 mt-2">
+                <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                   Please check your connection and try again.
                 </p>
               </div>
@@ -180,3 +158,7 @@ export const Pricing = () => {
     </div>
   );
 };
+
+
+
+

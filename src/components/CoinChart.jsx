@@ -60,9 +60,9 @@ export default function CoinChart({ id }) {
   }, [id]);
 
   return (
-    <div className="max-w-full h-[400px] border bg-gray-950 md:w-5xl m-auto mt-20">
+    <div className="m-auto mt-8 h-56 md:h-80 lg:h-[400px] max-w-full rounded-xl border border-slate-200 bg-white md:w-5xl dark:border-slate-800 dark:bg-gray-950">
       {loading ? (
-        <div className="flex h-full items-center justify-center text-slate-300">
+        <div className="flex h-full items-center justify-center text-slate-500 dark:text-slate-300">
           Loading chart...
         </div>
       ) : error ? (

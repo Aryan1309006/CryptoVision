@@ -1,55 +1,56 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useCryptoContext } from "../src/context/Cryptocontext";
-import CoinChart from "../src/components/CoinChart";
+import { useCryptoContext } from "../context/Cryptocontext";
+import CoinChart from "../components/CoinChart";
 
 export const CoinDetails = () => {
-   useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const { id } = useParams();
-  const { allCoins,loading ,currency} = useCryptoContext();
+  const { allCoins, loading, currency } = useCryptoContext();
   const coin = allCoins.find((coin) => coin.id === id);
-  // console.log(coin);
 
-if (loading) {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <div className="text-center">
-        <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-        <p className="text-lg font-medium">Loading coin data...</p>
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-black dark:text-white">
+        <div className="text-center">
+          <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent"></div>
+          <p className="text-lg font-medium">Loading coin data...</p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
-if (!coin) {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-black text-white">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-red-500 mb-2">
-          Coin Not Found
-        </h2>
-        <p className="text-gray-400">
-          The requested cryptocurrency could not be found.
-        </p>
+  if (!coin) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-black dark:text-white">
+        <div className="text-center">
+          <h2 className="mb-2 text-2xl font-bold text-red-500">Coin Not Found</h2>
+          <p className="text-slate-500 dark:text-slate-400">
+            The requested cryptocurrency could not be found.
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   return (
-    <div className="flex justify-center flex-col bg-black  w-full min-h-screen text-white pt-20">
-      <img src={coin.image} alt={coin.name} className="w-32 h-32 mx-auto" />
-      <h1 className="text-4xl font-bold text-center py-4">
+    <div className="flex w-full min-h-screen flex-col justify-center bg-slate-50 pt-20 text-slate-900 transition-colors duration-300 dark:bg-black dark:text-white">
+      <img src={coin.image} alt={coin.name} className="mx-auto h-32 w-32" />
+      <h1 className="py-4 text-center text-4xl font-bold">
         {coin.name} ({coin.symbol?.toUpperCase()})
       </h1>
-      <p className=" text-center font-semibold text-2xl text-gray-500">{(coin.market_cap_rank<=20)?`Rank ${coin.market_cap_rank}`:""}</p>
+      <p className="text-center text-2xl font-semibold text-slate-500 dark:text-slate-400">
+        {coin.market_cap_rank <= 20 ? `Rank ${coin.market_cap_rank}` : ""}
+      </p>
 
-<div className="w-full p-2 m-auto h-xl md:max-w-4xl">
-    <CoinChart id={coin.id}  /> 
-</div>
-    <h1 className="font-bold text-4xl m-auto mt-4 mb-10 border-4 border-transparent border-b-emerald-500 p-2 ">Coin Detail</h1>
+      <div className="m-auto h-xl w-full p-2 md:max-w-4xl">
+        <CoinChart id={coin.id} />
+      </div>
+      <h1 className="m-auto mb-10 mt-4 border-b-4 border-transparent border-b-emerald-500 p-2 text-4xl font-bold">
+        Coin Detail
+      </h1>
      {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
 
   <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
@@ -280,9 +281,9 @@ if (!coin) {
   );
 };
 const Card = ({ title, children, className = "" }) => (
-  <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 hover:border-emerald-500 transition-all duration-300">
-    <p className="text-gray-400 text-sm mb-2">{title}</p>
-    <h3 className={`text-xl font-bold break-words ${className}`}>
+  <div className="rounded-xl border border-slate-200 bg-white p-5 transition-all duration-300 hover:border-emerald-500 dark:border-zinc-800 dark:bg-zinc-900">
+    <p className="mb-2 text-sm text-slate-500 dark:text-gray-400">{title}</p>
+    <h3 className={`break-words text-xl font-bold ${className}`}>
       {children}
     </h3>
   </div>

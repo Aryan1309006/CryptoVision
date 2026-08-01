@@ -48,37 +48,33 @@ const features = [
 
 export default function Features() {
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-white">
       {/* Hero */}
-      <section className="max-w-7xl mx-auto px-6 py-20 text-center">
-        <h1 className="text-5xl font-bold mb-6">
+      <section className="mx-auto max-w-7xl px-6 py-20 text-center">
+        <h1 className="mb-6 text-5xl font-bold">
           Powerful Features for Every Crypto Enthusiast
         </h1>
 
-        <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-          CryptoGraph provides everything you need to explore cryptocurrency
+        <p className="mx-auto max-w-3xl text-lg text-slate-600 dark:text-gray-400">
+          CryptoVision provides everything you need to explore cryptocurrency
           markets, monitor price movements, and discover detailed insights with
           a fast and intuitive interface.
         </p>
       </section>
 
       {/* Features Grid */}
-      <section className="max-w-7xl mx-auto px-6 pb-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="mx-auto max-w-7xl px-6 pb-20">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-slate-900 rounded-2xl p-8 border border-slate-800 hover:border-blue-500 transition-all duration-300 hover:-translate-y-2"
+              className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-500 dark:border-slate-800 dark:bg-slate-900"
             >
-              <div className="text-blue-500 mb-5">
-                {feature.icon}
-              </div>
+              <div className="mb-5 text-blue-500">{feature.icon}</div>
 
-              <h3 className="text-2xl font-semibold mb-3">
-                {feature.title}
-              </h3>
+              <h3 className="mb-3 text-2xl font-semibold">{feature.title}</h3>
 
-              <p className="text-gray-400 leading-7">
+              <p className="leading-7 text-slate-600 dark:text-gray-400">
                 {feature.description}
               </p>
             </div>
@@ -87,40 +83,38 @@ export default function Features() {
       </section>
 
       {/* Why Choose Section */}
-      <section className="bg-slate-900 py-20">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+      <section className="bg-slate-100 py-20 dark:bg-slate-900">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 md:grid-cols-2">
           <div>
-            <h2 className="text-4xl font-bold mb-6">
-              Why Choose CryptoGraph?
-            </h2>
+            <h2 className="mb-6 text-4xl font-bold">Why Choose CryptoVision?</h2>
 
-            <p className="text-gray-400 leading-8">
-              CryptoGraph combines live cryptocurrency data, beautiful
+            <p className="leading-8 text-slate-600 dark:text-gray-400">
+              CryptoVision combines live cryptocurrency data, beautiful
               visualizations, and an intuitive interface into one modern
               dashboard. Whether you're a beginner exploring digital assets or
-              an experienced investor monitoring market trends, CryptoGraph
+              an experienced investor monitoring market trends, CryptoVision
               makes crypto analytics simple and accessible.
             </p>
           </div>
 
           <div className="space-y-5">
-            <div className="bg-slate-800 p-5 rounded-xl">
+            <div className="rounded-xl bg-white p-5 shadow-sm dark:bg-slate-800">
               ✅ Real-time cryptocurrency prices
             </div>
 
-            <div className="bg-slate-800 p-5 rounded-xl">
+            <div className="rounded-xl bg-white p-5 shadow-sm dark:bg-slate-800">
               ✅ Detailed market statistics
             </div>
 
-            <div className="bg-slate-800 p-5 rounded-xl">
+            <div className="rounded-xl bg-white p-5 shadow-sm dark:bg-slate-800">
               ✅ Interactive historical charts
             </div>
 
-            <div className="bg-slate-800 p-5 rounded-xl">
+            <div className="rounded-xl bg-white p-5 shadow-sm dark:bg-slate-800">
               ✅ Fast search functionality
             </div>
 
-            <div className="bg-slate-800 p-5 rounded-xl">
+            <div className="rounded-xl bg-white p-5 shadow-sm dark:bg-slate-800">
               ✅ Mobile-friendly responsive design
             </div>
           </div>
@@ -128,17 +122,17 @@ export default function Features() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 text-center px-6">
-        <h2 className="text-4xl font-bold mb-5">
+      <section className="px-6 py-20 text-center">
+        <h2 className="mb-5 text-4xl font-bold">
           Explore the Crypto Market Today
         </h2>
 
-        <p className="text-gray-400 mb-8">
+        <p className="mb-8 text-slate-600 dark:text-gray-400">
           Search, analyze, and track your favorite cryptocurrencies with
-          CryptoGraph.
+          CryptoVision.
         </p>
 
-        <button className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-xl font-semibold transition">
+        <button className="rounded-xl bg-blue-600 px-8 py-3 font-semibold transition hover:bg-blue-700">
           Get Started
         </button>
       </section>
