@@ -35,7 +35,7 @@ CryptoGraph helps users stay updated with the latest cryptocurrency market trend
 
 Live demo coming soon.
 
-- Demo URL: https://crypto-graph-three.vercel.app
+- Demo URL: [crypto-vision13.vercel.app](https://crypto-vision13.vercel.app/)
 
 ## 📸 Screenshots
 
