@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { Pricing } from "./pages/Pricing";
 import Features from "./pages/Features";
 import { Heropage } from "./pages/Heropage";
+import Seveditem from "./pages/Seveditem";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/coin/:id" element={<CoinDetails />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/features" element={<Features />} />
+          <Route path="/watchlist" element={<Seveditem />} />
         </Routes>
         <Footer />
       </div>

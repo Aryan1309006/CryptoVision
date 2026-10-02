@@ -154,7 +154,7 @@ This project is licensed under the MIT License.
 
 ## 👤 Author
 
-Built by Your Name
+Built by Aryan Patil
 
 ## 🙏 Acknowledgements
 

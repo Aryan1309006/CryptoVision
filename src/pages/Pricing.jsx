@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useCryptoContext } from "../context/Cryptocontext";
 import { Topten } from "../components/Topten";
 import ToptenSkeleton from "../components/ToptenSkeleton";
@@ -7,27 +7,20 @@ export const Pricing = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const { coinData, allCoins, loading, error, visibleCount, loadMoreCoins, hasMoreCoins } = useCryptoContext();
+  const {
+    allCoins,
+    loading,
+    loadingMore,
+    error,
+    visibleCount,
+    loadMoreCoins,
+    hasMoreCoins,
+  } = useCryptoContext();
+  const sentinelRef = useRef(null);
 
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("rank");
   const [changeFilter, setChangeFilter] = useState("all");
-
-  useEffect(() => {
-    if (loading || error) return;
-
-    const handleScroll = () => {
-      const nearBottom =
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200;
-
-      if (nearBottom && hasMoreCoins) {
-        loadMoreCoins();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [loading, error, hasMoreCoins, loadMoreCoins]);
 
   const filteredCoins = useMemo(() => {
     if (!allCoins) return [];
@@ -79,6 +72,42 @@ export const Pricing = () => {
 
     return coins;
   }, [allCoins, search, sortBy, changeFilter]);
+
+  const visibleCoins = filteredCoins.slice(0, visibleCount);
+  const hasMoreFilteredCoins = visibleCoins.length < filteredCoins.length;
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (
+      !sentinel ||
+      loading ||
+      loadingMore ||
+      error ||
+      !hasMoreCoins ||
+      !hasMoreFilteredCoins
+    ) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          loadMoreCoins();
+        }
+      },
+      { rootMargin: "500px 0px", threshold: 0 },
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [
+    error,
+    hasMoreCoins,
+    hasMoreFilteredCoins,
+    loadMoreCoins,
+    loading,
+    loadingMore,
+  ]);
 
   return (
     <div className="flex min-h-screen justify-center bg-slate-200 px-4 py-10 transition-colors duration-300 dark:bg-black">
@@ -141,24 +170,23 @@ export const Pricing = () => {
                 </p>
               </div>
             ) : (
-              filteredCoins.slice(0, visibleCount).map((coin) => <Topten key={coin.id} item={coin} />)
+              visibleCoins.map((coin) => <Topten key={coin.id} item={coin} />)
             )}
 
-            {loading && filteredCoins.length > 0 && (
-              <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2">
-                <div className="flex items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900/95 px-4 py-2 text-sm text-zinc-300 shadow-lg">
-                  <div className="h-3 w-3 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
-                  Loading more coins...
-                </div>
-              </div>
+            {!loading && !error && loadingMore && (
+              <>
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <ToptenSkeleton key={`pagination-skeleton-${index}`} />
+                ))}
+              </>
             )}
+            <div ref={sentinelRef} aria-hidden="true" className="h-px" />
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 
 
 

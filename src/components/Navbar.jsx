@@ -9,7 +9,8 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "Pricing", href: "/pricing" },
   { label: "Features", href: "/features" },
-  { label: "Blog", href: "#" },
+  // { label: "Blog", href: "#" },
+  { label: "Watchlist", href: "/watchlist" },
 ];
 
 export default function Navbar() {

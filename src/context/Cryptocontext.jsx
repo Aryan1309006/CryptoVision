@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, createContext } from "react";
+import React, { useState, useContext, useEffect, useCallback, useRef, createContext } from "react";
 
 const CryptoContext = createContext();
 
@@ -6,20 +6,43 @@ const CryptoContextProvider = ({ children }) => {
   const [coinData, setCoinData] = useState([]);
   const [allCoins, setAllCoins] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
   const [visibleCount, setVisibleCount] = useState(10);
+  const paginationTimeoutRef = useRef(null);
+  const paginationLockRef = useRef(false);
 
   const [currency, setCurrency] = useState({
     name: "usd",
     symbol: "$",
   });
 
-  const loadMoreCoins = () => {
-    setVisibleCount((prev) => Math.min(prev + 10, allCoins.length || prev));
-  };
+  const loadMoreCoins = useCallback(() => {
+    if (
+      paginationLockRef.current ||
+      visibleCount >= allCoins.length
+    ) {
+      return;
+    }
+
+    paginationLockRef.current = true;
+    setLoadingMore(true);
+    paginationTimeoutRef.current = window.setTimeout(() => {
+      setVisibleCount((prev) => Math.min(prev + 10, allCoins.length));
+      setLoadingMore(false);
+      paginationLockRef.current = false;
+      paginationTimeoutRef.current = null;
+    }, 200);
+  }, [allCoins.length, visibleCount]);
 
   // Fetch coins
-  const fetchCoins = async () => {
+  const fetchCoins = useCallback(async () => {
+    if (paginationTimeoutRef.current !== null) {
+      window.clearTimeout(paginationTimeoutRef.current);
+      paginationTimeoutRef.current = null;
+    }
+    paginationLockRef.current = false;
+    setLoadingMore(false);
     setLoading(true);
     setError(null);
 
@@ -42,7 +65,16 @@ const CryptoContextProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currency.name]);
+
+  useEffect(
+    () => () => {
+      if (paginationTimeoutRef.current !== null) {
+        window.clearTimeout(paginationTimeoutRef.current);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     setCoinData(allCoins.slice(0, visibleCount));
@@ -51,7 +83,7 @@ const CryptoContextProvider = ({ children }) => {
   // Refetch whenever currency changes
   useEffect(() => {
     fetchCoins();
-  }, [currency]);
+  }, [fetchCoins]);
 
   return (
     <CryptoContext.Provider
@@ -59,6 +91,7 @@ const CryptoContextProvider = ({ children }) => {
         coinData,
         allCoins,
         loading,
+        loadingMore,
         error,
         currency,
         setCurrency,
