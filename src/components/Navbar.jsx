@@ -24,7 +24,7 @@ export default function Navbar() {
     "inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-300 bg-white text-slate-700 transition hover:border-emerald-400/40 hover:text-emerald-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400/50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:text-emerald-400";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-emerald-500/20 bg-white/90 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.25)] backdrop-blur-xl dark:bg-slate-950/95 dark:shadow-[0_10px_30px_-20px_rgba(0,0,0,0.8)]">
+    <header className="sticky top-0 z-50 border-b border-emerald-500/20 bg-white/90 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.25)] backdrop-blur-xl dark:bg-[#181B20]/95 dark:shadow-[0_10px_30px_-20px_rgba(0,0,0,0.8)]">
       <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-3 py-4 text-slate-700 md:max-w-7xl md:px-5 dark:text-slate-100">
         <a
   href="/"
@@ -76,7 +76,7 @@ export default function Navbar() {
             <option value="eur" className="bg-white text-slate-800 dark:bg-slate-900 dark:text-white">EUR</option>
           </select>
 
-          <button type="button" onClick={toggleTheme} aria-label="Toggle theme" className={iconButtonClasses}>
+          <button type="button" onClick={toggleTheme} aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"} aria-pressed={isDark} className={iconButtonClasses}>
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </button>
 
@@ -115,7 +115,7 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-slate-200 bg-white/95 px-5 py-5 lg:hidden dark:border-slate-800 dark:bg-slate-950/95">
+        <div className="border-t border-slate-200 bg-white/95 px-5 py-5 lg:hidden dark:border-slate-800 dark:bg-[#181B20]/95">
           <div className="space-y-3">
             {navItems.map((item) => (
               <a key={item.label} href={item.href} className="block rounded-2xl px-4 py-3 text-slate-700 transition hover:bg-emerald-500/10 hover:text-emerald-500 dark:text-slate-200 dark:hover:text-emerald-300">
@@ -123,7 +123,7 @@ export default function Navbar() {
               </a>
             ))}
 
-            <button type="button" onClick={toggleTheme} className="flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-700 transition hover:border-emerald-400/40 hover:text-emerald-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+            <button type="button" onClick={toggleTheme} aria-pressed={isDark} className="flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-white px-4 py-3 text-slate-700 transition hover:border-emerald-400/40 hover:text-emerald-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
               {isDark ? "Light mode" : "Dark mode"}
             </button>

@@ -8,7 +8,7 @@ import { HiArrowTrendingUp } from "react-icons/hi2";
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-black border-t border-emerald-500/20 text-slate-700 dark:text-gray-400">
+    <footer className="bg-white dark:bg-[#181B20] border-t border-emerald-500/20 text-slate-700 dark:text-gray-400">
       <div className="max-w-7xl mx-auto px-6 py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Logo & About */}

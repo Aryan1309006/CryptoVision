@@ -48,7 +48,7 @@ const features = [
 
 export default function Features() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-[#181B20] dark:text-white">
       {/* Hero */}
       <section className="mx-auto max-w-7xl px-6 py-20 text-center">
         <h1 className="mb-6 text-5xl font-bold">

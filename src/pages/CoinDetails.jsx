@@ -25,7 +25,7 @@ export const CoinDetails = () => {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-black dark:text-white">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-[#181B20] dark:text-white">
         <div className="text-center">
           <div className="mx-auto mb-4 h-10 w-10 animate-spin rounded-full border-4 border-emerald-500 border-t-transparent"></div>
           <p className="text-lg font-medium">Loading coin data...</p>
@@ -36,7 +36,7 @@ export const CoinDetails = () => {
 
   if (!coin) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-black dark:text-white">
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-[#181B20] dark:text-white">
         <div className="text-center">
           <h2 className="mb-2 text-2xl font-bold text-red-500">
             Coin Not Found
@@ -50,7 +50,7 @@ export const CoinDetails = () => {
   }
 
   return (
-    <div className="flex w-full min-h-screen flex-col justify-center bg-slate-50 pt-20 text-slate-900 transition-colors duration-300 dark:bg-black dark:text-white">
+    <div className="flex w-full min-h-screen flex-col justify-center bg-slate-50 pt-20 text-slate-900 transition-colors duration-300 dark:bg-[#181B20] dark:text-white">
       <img src={coin.image} alt={coin.name} className="mx-auto h-32 w-32" />
       <div className="flex flex-wrap items-center justify-center gap-3 px-4 py-4">
         <h1 className="text-center text-3xl font-bold sm:text-4xl">

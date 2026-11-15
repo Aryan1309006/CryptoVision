@@ -21,7 +21,7 @@ export const Heropage = () => {
   }, [allCoins]);
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-slate-100 px-4 pt-20 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-slate-100 px-4 pt-20 text-slate-900 transition-colors duration-300 dark:bg-[#181B20] dark:text-white">
       <h1 className="max-w-4xl text-center text-4xl font-bold md:text-7xl">
         Explore the Future of <span className="text-emerald-500">Crypto</span>
       </h1>

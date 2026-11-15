@@ -110,7 +110,7 @@ export const Pricing = () => {
   ]);
 
   return (
-    <div className="flex min-h-screen justify-center bg-slate-200 px-4 py-10 transition-colors duration-300 dark:bg-black">
+    <div className="flex min-h-screen justify-center bg-slate-100 px-4 py-10 transition-colors duration-300 dark:bg-[#181B20]">
       <div className="w-full max-w-6xl">
         <div className="mb-6 flex flex-col gap-4 md:flex-row">
           <input

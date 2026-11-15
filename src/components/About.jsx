@@ -11,7 +11,7 @@ import {
 
 export const About = () => {
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
+    <div className="min-h-screen bg-slate-100 text-slate-900 transition-colors duration-300 dark:bg-[#181B20] dark:text-white">
 
       {/* ================= HERO ================= */}
       <section className="px-4 pb-16 pt-24 md:pb-24 md:pt-32">

@@ -11,7 +11,7 @@ import Seveditem from "./pages/Seveditem";
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+      <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-[#181B20] dark:text-slate-100">
         <Navbar />
         <Routes>
           <Route path="/" element={<Heropage />} />
